@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat&display=swap" rel="stylesheet">  
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+  
+    <title>Patient Profile</title>
+  </head>
+ 
+  
+  <body onload='startUp()' style="font-family: 'Montserrat', sans-serif; "; class="container mt-3">
+    
+    
+    <div class="row align-items-start">
+      <div class="col mx-3">
+        <h1 style="font-family: 'Cinzel', serif; color:#345797"; class="text-center mt-2" >Patient Profile</h1>
+        
+        
+        <img id="main_img" src="{% static 'doc_app/img/doc.svg' %}"   alt="doc pic">
+      </div>
+      <div class="col p-4 bg-light" style="background-color:white; border-radius: 10px;">
+                <form>
+          <div id="profile_group1">
+             <div class="mb-3">
+        <label for="firstName" class="">First name</label>
+        <input onchange="valueGetterOnChanged('firstName')" type="text" class="form-control all_field_prop" id="firstName" aria-describedby="firstNameHelp">
+      </div>
+     
+      
+      <div class="mb-3">
+          <label for="lastName" class="form-label">Last name</label>
+        <input type="text" onchange= "valueGetterOnChanged('lastName')" class="form-control all_field_prop" id="lastName" aria-describedby="lastNameHelp">
+      </div>
+      
+      <div class="mb-3">
+          <label for="otherNames" class="form-label">Other names</label>
+        <input type="text" onchange="valueGetterOnChanged('otherNames')" class="form-control all_field_prop" id="otherNames" aria-describedby="otherNamesHelp">
+      </div>
+      
+      <div class="mb-3">
+          <label for="DOB" class="form-label">D.O.B.</label>
+        <input type="date" onchange="DOBChanged()" class="form-control all_field_prop" id="DOB" aria-describedby="DOBHelp">
+      </div>
+      
+       <div class="mb-3">
+          <label for="Age" class="form-label">Age</label>
+        <input type="number" onchange="valueGetterOnChanged('Age')" class="form-control all_field_prop" id="Age" aria-describedby="AgeHelp">
+      </div>
+    
+          <div class="d-grid gap-2">
+           <button id="next_btn" class="btn all_field_prop" style="background-color:#345797; color:white" type="button">Next</button>
+    </div>
+          </div>
+     
+      <div id="profile_group2">
+          
+       <label for="gender" class="form-label">Gender</label>
+       <select onchange="valueGetterOnChanged('gender')" id='gender' class="form-select all_field_prop mb-3" aria-label="gender">
+      <option disabled selected></option>
+      <option value="M">M</option>
+      <option value="F">F</option>
+      <option value="other">Other</option>
+    </select>
+      
+       <div class="mb-3">
+          <label for="occupation" class="form-label">Occupation</label>
+        <input type="text" onchange="valueGetterOnChanged('occupation')" class="form-control all_field_prop" id="occupation" aria-describedby="occupationHelp">
+      </div>
+      
+       <div class="mb-3">
+          <label for="address" class="form-label">Address</label>
+        <input type="text" onchange="valueGetterOnChanged('address')" id='address' class="form-control all_field_prop" id="address" aria-describedby="addressHelp">
+      </div>
+      
+       <div class="mb-3">
+          <label for="contact" class="form-label">Contact</label>
+        <input type="tel" onchange="valueGetterOnChanged('contact')" class="form-control all_field_prop" id="contact" aria-describedby="contactHelp">
+      </div>
+      <div class="mb-3">
+          <label for="contact" class="form-label">ID</label>
+        <input type="tel"  disabled class="form-control all_field_prop" id="id" aria-describedby="contactHelp">
+      </div>
+         <div class="d-grid gap-2">
+       <button onclick="submitClicked();" style="background-color: #345797; color:white" type="button" class="btn  all_field_prop">Submit</button>
+       
+       </div>
+      </div>
+    </form>
+      </div>
+    </div>
+ 
+ 
+ <script>
+
+ </script>
+ 
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <script src="{% static 'doc_app/index.js' %}"></script>
+
+    <script>
+    
+      patient_profile={} // Hoisting the Patient Profile Object
+      function valueGetterOnChanged(id) {
+        userValue = document.getElementById(id).value 
+        patient_profile[id] = userValue
+        sessionStorage.setItem(id, userValue)
+         
+               }
+
+      function submitClicked(){
+        window.location='dashboard'
+        // console.log(patient_profile)
+        sessionStorage.setItem("patient_profile", JSON.stringify(patient_profile))
+ 
+ };
+
+ function startUp(params) {
+     let tags = ['firstName','lastName','otherNames','DOB','Age','gender','occupation','address','contact']
+  for (i in tags){
+        if(sessionStorage.getItem(tags[i])!=''){
+   document.getElementById(tags[i]).value =sessionStorage.getItem(tags[i])
+  }
+}
+ }
+//// Date Utility 
+const ageCalculator = (birthDate)=>{
+  console.log(typeof(birthDate))
+  //  birthDate = String(birthDate)
+  birthYear = birthDate.split("-")[0]
+  birthMonth = birthDate.split("-")[1]
+  birthDay = birthDate.split("-")[2]
+  const currentYear = new Date().getFullYear();
+   const currentDay = new Date().getDate()
+  
+  const currentMonth  = Number(1) + new Date().getMonth() 
+  
+  
+  if (currentMonth == birthMonth && currentDay>= birthDay){
+    
+    age = currentYear - birthYear
+    console.log(age)
+  }else if (currentMonth > birthMonth){
+  age = (currentYear - birthYear) 
+  }else{
+    age = (currentYear - birthYear) -1
+  }
+  String (age)
+  //  age = JSON.parse(age)
+  // age = parseInt(age)
+  
+   document.getElementById('Age').value= age
+   console.log(`You are ${age} years `)
+
+  
+// console.log(typeof(document.getElementById('DOB').value))
+  
+  }
+
+  const DOBChanged = ()  =>{
+    valueGetterOnChanged("DOB");
+    
+    // ageCalculator(Number(document.getElementById('DOB').value))
+    console.log(document.getElementById('DOB').value)
+    ageCalculator(document.getElementById('DOB').value)
+  }
+  
+  
+  
+  
+  
+  
+      
+    </script>
+<style>
+.all_field_prop{
+padding:14px;
+}
+
+#main_img{
+  height:50vh; width:300px
+}
+body{ background-color: aliceblue;}
+
+@media only screen and (min-width :576px) {
+   
+}
+@media only screen and (min-width :768px) {
+    
+}
+@media only screen and (min-width :992px) {
+  
+  #main_img{
+   height: 100vh;
+   width:500px
+  }
+  
+}
+@media only screen and (min-width:1200.98px) {
+  
+  #main_img{
+   height: 100vh;
+   width:500px
+  }
+}
+@media only screen and (min-width:1400px) {
+    
+}
+
+
+</style>
+
+  </body>
+</html>

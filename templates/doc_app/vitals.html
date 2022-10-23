@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat&display=swap" rel="stylesheet">  
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+  
+    <title>Patient Vitals</title>
+  </head>
+  
+  <body onload="startUp()" style="font-family: 'Montserrat', sans-serif;"; class="container mt-3">
+    <h1 style="font-family: 'Cinzel', serif; color:#345797" class="text-center">Patient Vitals</h1>
+    
+    <div class="row align-items-start">
+      <div class="col">
+        <img id="vitals_img" src="{% static 'doc_app/img/vitals_pic.svg' %}" alt="doc pic">
+      </div>
+      <div id="form_column" class="col ">
+        <form>
+          <div id="profile_group1">
+             <div class="mb-3">
+        <label id="yy" for="firstName" class="">Temperature</label>
+        <input type="text" onchange="valueGetterOnChanged('temperature')" class="form-control all_field_prop" id="temperature" aria-describedby="firstNameHelp">
+      </div>
+      
+      <div class="mb-3">
+          <label for="lastName" class="form-label">Blood Pressure</label>
+        <input type="text" onchange="valueGetterOnChanged('bp')" class="form-control all_field_prop" id="bp" aria-describedby="lastNameHelp">
+      </div>
+      
+      <div class="mb-3">
+          <label for="otherNames" class="form-label">Pulse Rate</label>
+        <input type="text" onchange="valueGetterOnChanged('pulse')" class="form-control all_field_prop" id="pulse" aria-describedby="otherNamesHelp">
+      </div>
+    
+         
+         <div class="d-grid gap-2">
+       <button onclick="submitClicked();" type="button" style="background-color: #345797; color:white;" class="btn all_field_prop">Submit</button>
+       </div>
+      </div>
+    </form>
+      </div>
+    </div>
+
+   
+<script>
+   vitals={} // Hoisting the Patient Profile Object
+      function valueGetterOnChanged(id) {
+        userValue = document.getElementById(id).value 
+        vitals[id] = userValue
+        sessionStorage.setItem(id, userValue)
+        // console.log(vitals)
+               }
+
+ function submitClicked(){
+  window.location='dashboard'
+   sessionStorage.setItem("vitals", JSON.stringify(vitals))
+  console.log(sessionStorage.getItem("vitals"))
+
+ };
+
+ function startUp(){
+  let tags = ['temperature', 'bp', 'pulse']
+  for (i in tags){
+        if(sessionStorage.getItem(tags[i])!=''){
+   document.getElementById(tags[i]).value =sessionStorage.getItem(tags[i])
+  }
+}
+ }
+ </script>
+ 
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <script src="{% static 'doc_app/index.js' %}"></script>
+
+
+
+
+<style>
+.all_field_prop{
+padding:14px;
+}
+
+#vitals_img{
+height: 50vh;
+ width:350px 
+}
+@media only screen and (min-width :576px) {
+   
+  }
+  @media only screen and (min-width :768px) {
+    
+   
+  }
+  @media only screen and (min-width :992px) {
+    
+    #vitals_img{
+     height: 100vh;
+     width:500px
+    }
+    #form_column{
+      margin-top: 100px
+    }
+    
+  }
+  @media only screen and (min-width:1200.98px) {
+    
+    #vitals_img{
+     height: 100vh;
+     width:500px
+    }
+  }
+  @media only screen and (min-width:1400px) {
+      
+  }
+</style>
+
+  </body>
+</html>
