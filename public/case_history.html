@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat&display=swap" rel="stylesheet">  
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+  
+    <title>Case History</title>
+  </head>
+  
+  <body onload='startUp()' style="font-family: 'Montserrat', sans-serif;"; class="container mt-3 mb-2">
+    <h1 style="font-family: 'Cinzel', serif"; class="text-primary text-center">Case History</h1>
+
+  <form>
+      
+         <div class="mb-3">
+    <label id="yy" for="firstName" class="">Chief Complaint</label>
+    <input type="text" onchange="valueGetterOnChanged('cc')" class="form-control all_field_prop" id="cc" aria-describedby="ccHelp">
+  </div>
+  
+  <div class="mb-3">
+      <label for="lastName" class="form-label">Duration</label>
+    <input type="text" onchange="valueGetterOnChanged('duration')" class="form-control all_field_prop" id="duration" aria-describedby="lastNameHelp">
+  </div>
+  
+  <div class="mb-3">
+      <label for="otherNames" class="form-label">Relief factors</label>
+    <input type="text" onchange="valueGetterOnChanged('relief')" class="form-control all_field_prop" id="relief" aria-describedby="otherNamesHelp">
+  </div>
+  
+  <div class="mb-3">
+      <label for="DOB" class="form-label">Frequency</label>
+    <input type="text" onchange="valueGetterOnChanged('frequency')" class="form-control all_field_prop" id="frequency" aria-describedby="DOBHelp">
+  </div>
+  
+   <div class="mb-3">
+      <label for="Age" class="form-label">Association</label>
+    <input type="text" onchange="valueGetterOnChanged('association')" class="form-control all_field_prop" id="association" aria-describedby="AgeHelp">
+  </div>
+  
+   <div class="mb-3">
+      <label for="occupation" class="form-label">Location</label>
+    <input type="text" onchange="valueGetterOnChanged('location')" class="form-control all_field_prop" id="location" aria-describedby="occupationHelp">
+  </div>
+  
+   <div class="mb-3">
+      <label for="address" class="form-label">Laterality</label>
+    <input type="text" onchange="valueGetterOnChanged('laterality')" class="form-control all_field_prop" id="laterality" aria-describedby="addressHelp">
+  </div>
+  
+   <div class="mb-3">
+      <label for="contact" class="form-label">Onset</label>
+    <input type="text" onchange="valueGetterOnChanged('onset')" class="form-control all_field_prop" id="onset" aria-describedby="contactHelp">
+  </div>
+  <div class="mb-3">
+      <label for="occupation" class="form-label">Pain</label>
+    <input type="text" onchange="valueGetterOnChanged('pain')" class="form-control all_field_prop" id="pain" aria-describedby="occupationHelp">
+  </div>
+<div class="mb-3">
+      <label for="occupation" class="form-label">Prescription Medication</label>
+    <input type="text" onchange="valueGetterOnChanged('medication')" class="form-control all_field_prop" id="medication" aria-describedby="occupationHelp">
+  </div>
+<div class="mb-3">
+      <label for="occupation" class="form-label">Exacerbating factors</label>
+    <input onchange="valueGetterOnChanged('exacerbating')" type="text" class="form-control all_field_prop" id="exacerbating" aria-describedby="occupationHelp">
+  </div>
+  
+  
+     <div class="d-grid gap-2">
+   <button onclick="case_historySubmit();" type="button" class="btn btn-primary all_field_prop">Submit</button>
+   </div>
+  
+</form>
+ 
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <script>
+  case_history={} // Hoisting the Patient Profile Object
+      function valueGetterOnChanged(id) {
+        userValue = document.getElementById(id).value 
+        case_history[id] = userValue
+        sessionStorage.setItem(id, userValue)
+        // console.log(case_history)
+               }
+
+  function case_historySubmit(){
+   window.location = "dashboard.html"
+  sessionStorage.setItem("case_history", JSON.stringify(case_history))
+  console.log(sessionStorage.getItem("case_history"))
+  }
+
+  function startUp() {
+    let tags = ['cc','duration','relief','frequency','association','location','laterality','onset','pain','medication','exacerbating']
+    for (i in tags){
+        if(sessionStorage.getItem(tags[i])!=''){
+   document.getElementById(tags[i]).value =sessionStorage.getItem(tags[i])
+  }
+}
+  }
+
+  
+    </script>
+
+    <script src="index.js"></script>
+<style>
+.all_field_prop{
+padding:14px;
+}
+</style>
+
+  </body>
+</html>
