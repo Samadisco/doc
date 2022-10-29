@@ -1,44 +1,67 @@
+from pickle import TRUE
+from tabnanny import verbose
 from django.db import models
 
 
-# # Create your models here.
+# Create your models here.
 
-# class patient_profile(models.Model):
-#     first_name = models.CharField(max_length=50)
-#     last_name = models.CharField(max_length=50)
-#     other_names = models.CharField(max_length=50)
-#     departure_date = models.DateField()
-#     gender = models.CharField(max_length=20)
-#     phone_no = models.CharField(max_length=30)
-#     std_id = models.CharField(max_length=10)
+class patient_profile(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    other_names = models.CharField(max_length=50)
+    dob = models.DateField()
+    age = models.CharField(max_length =10)
+    gender = models.CharField(max_length =10)
+    occupation = models.CharField(max_length =50)
+    address =  models.CharField(max_length =100)
+    contact = models.CharField(max_length =100)
+    id = models.CharField(max_length =20, primary_key = TRUE)
+    date_time = models.DateTimeField()
 
-#     def __str__(self):
-#         return self.std_id
+    class Meta:
+        verbose_name_plural = 'Patient Profile'
+  
+    def __str__(self):
+        return self.id +' '+ str(self.first_name)
 
 
 
-# class trip_info(models.Model):
-   
-#     trip_id = models.CharField(max_length=10)
-#     std_id = models.CharField(max_length=10)
-#     departure_date = models.DateField()
-#     departure_time = models.CharField(max_length=10)
-#     destination = models.CharField(max_length=50)
-#     ticket_id = models.CharField(max_length=50)
-#     seat_number = models.CharField(max_length=50, default='Nill')
-#     full_name = models.CharField(max_length=60)
 
-#     def __str__(self):
-#         return (self.ticket_id) +' '+ str(self.pk)
+class vitals(models.Model):
+    
+    temp = models.CharField(max_length=10)
+    bp = models.CharField(max_length=10)
+    pulse = models.CharField(max_length=10)
+    details = models.ForeignKey(patient_profile, on_delete = models.CASCADE)
+    
+
+    class Meta:
+        verbose_name_plural = 'Vitals'
+    def __str__(self):
+        return (self.temp) + ' ' + str(self.details.first_name)
 
         
 
 
-# class bus_info(models.Model):
-#     current_bus_number = models.CharField(max_length=50,default='Nill')
+class case_history(models.Model):
+    cc = models.CharField(max_length =200)
+    dur = models.CharField(max_length =200)
+    rel =  models.CharField(max_length =200)
+    fre = models.CharField(max_length =200)
+    asso = models.CharField(max_length =200)
+    loc = models.CharField(max_length =200)
+    lat = models.CharField(max_length =100)
+    onset = models.CharField(max_length =200)
+    pain = models.CharField(max_length =100)
+    p_medix = models.CharField(max_length =200)
+    e_f = models.CharField(max_length =100)
+    details = models.ForeignKey(patient_profile, on_delete = models.CASCADE)
 
-#     def __str__(self):
-#         return self.current_bus_number
+    class Meta:
+        verbose_name_plural = 'Case History'
+    def __str__(self):
+        return self.cc
+        
 
 
 
